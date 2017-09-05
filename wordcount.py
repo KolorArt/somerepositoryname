@@ -38,27 +38,26 @@ def read_words(filename):
 def get_dict_of_words(filename):
     words = {}
     for word in read_words(filename):
-        try:
+        if word in words:
             words[word] += 1
-        except KeyError:
+        else:
             words[word] = 1
     return words
 
 def print_words(filename):
-    words = sorted(list(get_dict_of_words(filename).items()), key=lambda pair: pair[0])
-    for word in words:
-        print(*word)
+    words = sorted(get_dict_of_words(filename).items(), key=lambda pair: pair[0])
+    for word, count in words:
+        print(word, count)
 
 def print_top(filename):
-    words = sorted(list(get_dict_of_words(filename).items()), key=lambda pair: pair[1], reverse=True)
-    for word in words[:20]:
-        print(*word)
+    words = sorted(get_dict_of_words(filename).items(), key=lambda pair: pair[1], reverse=True)
+    for word, count in words[:20]:
+        print(word, count)
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
     if len(sys.argv) != 3:
-        print(sys.argv)
         print('usage: ./wordcount.py {--count | --topcount} file')
         sys.exit(1)
 

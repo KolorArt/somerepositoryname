@@ -30,8 +30,9 @@ print(verbing('reading'))
 # Example input: 'This dinner is not that bad!'
 # Example output: 'This dinner is good!'
 def not_bad(s):
-    if s.find('not') != -1 and s.find('bad') != -1 and s.find('bad') > s.find('not'):
-        return s[:s.find('not')] + 'good' + s[s.find('bad') + len('bad'):]
+    not_pos, bad_pos = s.find('not'), s.find('bad')
+    if bad_pos > not_pos >= 0:
+        return s[:not_pos] + 'good' + s[bad_pos + len('bad'):]
     else:
         return s
 
